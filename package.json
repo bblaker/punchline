@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.28.0",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",
     "@vitejs/plugin-react": "^4.5.2",
@@ -22,6 +23,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.2.0",
+    "tailwindcss": "^4.3.3",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.33.1",
     "vite": "^6.3.5"

@@ -1,4 +1,19 @@
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+@import "tailwindcss";
+
+@theme {
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-sans: system-ui, -apple-system, sans-serif;
+
+  --color-fg: #1a1a1a;
+  --color-fg-2: #666;
+  --color-fg-3: #999;
+  --color-bg: #fafafa;
+  --color-bg-hover: #f0f0f0;
+  --color-border: #e5e5e5;
+  --color-accent: #0066cc;
+  --color-positive: #1a8754;
+  --color-warning: #b45309;
+}
 
 :root {
   --fg: #1a1a1a;
