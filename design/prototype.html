@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Punchline</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --fg: #1a1a1a;
+      --fg-2: #666;
+      --fg-3: #999;
+      --bg: #fafafa;
+      --bg-hover: #f0f0f0;
+      --border: #e5e5e5;
+      --accent: #0066cc;
+      --positive: #1a8754;
+      --warning: #b45309;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --sans: system-ui, -apple-system, sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --fg: #e5e5e5;
+        --fg-2: #a3a3a3;
+        --fg-3: #8a8a8a;
+        --bg: #0a0a0a;
+        --bg-hover: #171717;
+        --border: #262626;
+        --accent: #60a5fa;
+        --positive: #4ade80;
+        --warning: #fbbf24;
+      }
+    }
+
+    html { font-size: 15px; line-height: 1.5; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: var(--accent); color: var(--bg); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+
+    button, input, select, textarea {
+      font: inherit;
+      color: inherit;
+      background: transparent;
+      border: 1px solid var(--border);
+    }
+    button { cursor: pointer; }
+    button:hover { background: var(--bg-hover); }
+    input, select, textarea { padding: 0.5rem 0.75rem; }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+    .fg-2 { color: var(--fg-2); }
+    .fg-3 { color: var(--fg-3); }
+    .positive { color: var(--positive); }
+    .warning { color: var(--warning); }
+    .accent { color: var(--accent); }
+
+    /* Layout */
+    .container { max-width: 72rem; margin: 0 auto; padding: 0 1.5rem; }
+    .grid { display: grid; gap: 1.5rem; }
+    .flex { display: flex; align-items: center; gap: 1rem; }
+    .flex-between { justify-content: space-between; }
+    .gap-sm { gap: 0.5rem; }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+    }
+    header nav { display: flex; gap: 2rem; font-size: 0.875rem; }
+    header nav a { color: var(--fg-2); }
+    header nav a:hover, header nav a.active { color: var(--fg); text-decoration: none; }
+    .logo { font-weight: 600; letter-spacing: -0.02em; }
+
+    /* Section */
+    section { padding: 2rem 0; }
+    section + section { border-top: 1px solid var(--border); }
+    h1 { font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--fg-3); margin-bottom: 1.5rem; }
+
+    /* Stats row */
+    .stats { display: flex; gap: 3rem; margin-bottom: 2rem; }
+    .stat-value { font-family: var(--mono); font-size: 1.75rem; font-weight: 500; letter-spacing: -0.02em; }
+    .stat-label { font-size: 0.75rem; color: var(--fg-3); margin-top: 0.25rem; }
+
+    /* Quick entry */
+    .quick-entry {
+      display: grid;
+      grid-template-columns: 8rem 1fr 6rem 6rem auto;
+      gap: 0.75rem;
+      align-items: end;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .quick-entry label {
+      display: block;
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--fg-3);
+      margin-bottom: 0.375rem;
+    }
+    .quick-entry input,
+    .quick-entry select { width: 100%; font-size: 0.875rem; }
+    .quick-entry button {
+      padding: 0.5rem 1rem;
+      background: var(--fg);
+      color: var(--bg);
+      border: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .quick-entry button:hover { background: var(--fg-2); }
+
+    /* Table */
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    th { text-align: left; font-size: 0.6875rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg-3); padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+    td { padding: 0.75rem 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--bg-hover); }
+    th:last-child, td:last-child { text-align: right; }
+    .row-date { width: 6rem; }
+    .row-hours { width: 5rem; font-family: var(--mono); }
+    .row-amount { width: 7rem; font-family: var(--mono); text-align: right; }
+    .row-status { width: 5rem; }
+    .row-actions { width: 3rem; }
+
+    /* Day group */
+    .day-header {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--fg-2);
+      padding: 1.5rem 0 0.5rem;
+      border-bottom: none;
+      background: var(--bg);
+    }
+    .day-header td { padding: 1.5rem 0 0.5rem; border-bottom: none; }
+
+    /* Entry row */
+    .entry-project { font-weight: 500; }
+    .entry-desc { color: var(--fg-2); margin-top: 0.125rem; }
+    .entry-tag {
+      display: inline-block;
+      font-size: 0.6875rem;
+      padding: 0.125rem 0.375rem;
+      background: var(--bg-hover);
+      color: var(--fg-3);
+      margin-left: 0.5rem;
+    }
+    .entry-tag.billable { background: color-mix(in srgb, var(--positive) 15%, transparent); color: var(--positive); }
+
+    /* Clients */
+    .client-row { display: grid; grid-template-columns: 1fr 6rem 6rem 8rem; gap: 2rem; padding: 1rem 0; border-bottom: 1px solid var(--border); }
+    .client-row:hover { background: var(--bg-hover); margin: 0 -1rem; padding: 1rem; }
+    .client-name { font-weight: 500; }
+    .client-email { font-size: 0.875rem; color: var(--fg-2); }
+    .client-stat { font-family: var(--mono); font-size: 0.875rem; }
+    .client-stat span { display: block; font-size: 0.6875rem; font-family: var(--sans); color: var(--fg-3); margin-bottom: 0.125rem; }
+
+    /* Invoices */
+    .invoice-number { font-family: var(--mono); font-weight: 500; }
+    .invoice-number a { color: var(--accent); }
+    .status { font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .status.paid { color: var(--positive); }
+    .status.sent { color: var(--accent); }
+    .status.overdue { color: var(--warning); }
+    .status.draft { color: var(--fg-3); }
+
+    /* Action buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      padding: 0.5rem 0.875rem;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: transparent;
+    }
+    .btn:hover { background: var(--bg-hover); }
+    .btn-primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+    .btn-primary:hover { background: var(--fg-2); border-color: var(--fg-2); }
+    .btn svg { width: 1rem; height: 1rem; }
+
+    /* Edit button */
+    .edit-btn {
+      opacity: 0;
+      padding: 0.25rem;
+      border: none;
+      color: var(--fg-3);
+    }
+    tr:hover .edit-btn, .client-row:hover .edit-btn { opacity: 1; }
+    .edit-btn:hover { color: var(--fg); background: transparent; }
+
+    /* Summary line */
+    .summary {
+      font-size: 0.8125rem;
+      color: var(--fg-2);
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      margin-top: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 0;
+      margin-top: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem;
+      color: var(--fg-3);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .quick-entry { grid-template-columns: 1fr 1fr; }
+      .quick-entry > div:nth-child(2) { grid-column: span 2; }
+      .stats { flex-wrap: wrap; gap: 1.5rem; }
+      .client-row { grid-template-columns: 1fr; gap: 0.5rem; }
+      .row-date, .row-status { display: none; }
+    }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      top: -3rem;
+      left: 1rem;
+      background: var(--fg);
+      color: var(--bg);
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      z-index: 200;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--fg-3); }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header>
+    <div class="container flex flex-between">
+      <a href="#" class="logo">Punchline</a>
+      <nav>
+        <a href="#time" class="active">Time</a>
+        <a href="#clients">Clients</a>
+        <a href="#invoices">Invoices</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+
+    <!-- Dashboard / Time -->
+    <section id="time">
+      <div class="stats">
+        <div>
+          <div class="stat-value">47.5<span class="fg-3" style="font-size: 1rem;">h</span></div>
+          <div class="stat-label">Unbilled</div>
+        </div>
+        <div>
+          <div class="stat-value warning">$12,450</div>
+          <div class="stat-label">Outstanding</div>
+        </div>
+        <div>
+          <div class="stat-value positive">$8,200</div>
+          <div class="stat-label">This month</div>
+        </div>
+      </div>
+
+      <form class="quick-entry" aria-label="Log time entry">
+        <div>
+          <label for="date">Date</label>
+          <input type="date" id="date" value="2024-09-09">
+        </div>
+        <div>
+          <label for="project">Project</label>
+          <select id="project">
+            <option>Acme Corp / Website Redesign</option>
+            <option>Acme Corp / Mobile App</option>
+            <option>TechStart / API Integration</option>
+          </select>
+        </div>
+        <div>
+          <label for="hours">Hours</label>
+          <input type="number" id="hours" step="0.25" value="2.5" class="mono">
+        </div>
+        <div>
+          <label for="desc">Description</label>
+          <input type="text" id="desc" placeholder="What did you work on?">
+        </div>
+        <div>
+          <label>&nbsp;</label>
+          <button type="submit">Log</button>
+        </div>
+      </form>
+
+      <h1>This Week</h1>
+      <table>
+        <thead>
+          <tr>
+            <th class="row-date">Date</th>
+            <th>Project / Description</th>
+            <th class="row-hours">Hours</th>
+            <th class="row-actions"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="day-header">
+            <td colspan="4">Monday, Sep 9 <span class="mono fg-3" style="float: right;">3.5h</span></td>
+          </tr>
+          <tr>
+            <td class="row-date fg-3 mono">09:00</td>
+            <td>
+              <div class="entry-project">Acme Corp / Website Redesign <span class="entry-tag billable">billable</span></div>
+              <div class="entry-desc">Frontend development - hero section</div>
+            </td>
+            <td class="row-hours mono">2.5</td>
+            <td class="row-actions">
+              <button class="edit-btn" aria-label="Edit entry">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 1rem; height: 1rem;">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-date fg-3 mono">14:30</td>
+            <td>
+              <div class="entry-project">TechStart / API Integration <span class="entry-tag billable">billable</span></div>
+              <div class="entry-desc">Endpoint debugging and testing</div>
+            </td>
+            <td class="row-hours mono">1.0</td>
+            <td class="row-actions">
+              <button class="edit-btn" aria-label="Edit entry">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 1rem; height: 1rem;">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr class="day-header">
+            <td colspan="4">Friday, Sep 6 <span class="mono fg-3" style="float: right;">6.0h</span></td>
+          </tr>
+          <tr>
+            <td class="row-date fg-3 mono">09:00</td>
+            <td>
+              <div class="entry-project">Acme Corp / Website Redesign <span class="entry-tag billable">billable</span></div>
+              <div class="entry-desc">Responsive layout implementation</div>
+            </td>
+            <td class="row-hours mono">4.0</td>
+            <td class="row-actions">
+              <button class="edit-btn" aria-label="Edit entry">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 1rem; height: 1rem;">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-date fg-3 mono">14:00</td>
+            <td>
+              <div class="entry-project">TechStart / API Integration <span class="entry-tag">non-billable</span></div>
+              <div class="entry-desc">Research and planning</div>
+            </td>
+            <td class="row-hours mono">2.0</td>
+            <td class="row-actions">
+              <button class="edit-btn" aria-label="Edit entry">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 1rem; height: 1rem;">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="summary mono">
+        9.5h logged this week &middot; 7.5h billable
+      </div>
+    </section>
+
+    <!-- Clients -->
+    <section id="clients">
+      <div class="flex flex-between" style="margin-bottom: 1.5rem;">
+        <h1 style="margin-bottom: 0;">Clients</h1>
+        <button class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          New
+        </button>
+      </div>
+
+      <a href="#" class="client-row">
+        <div>
+          <div class="client-name">Acme Corp</div>
+          <div class="client-email">contact@acmecorp.com</div>
+        </div>
+        <div class="client-stat">
+          <span>Rate</span>
+          $150
+        </div>
+        <div class="client-stat">
+          <span>Unbilled</span>
+          47.5h
+        </div>
+        <div class="client-stat warning">
+          <span>Outstanding</span>
+          $12,450
+        </div>
+      </a>
+
+      <a href="#" class="client-row">
+        <div>
+          <div class="client-name">TechStart Inc</div>
+          <div class="client-email">billing@techstart.io</div>
+        </div>
+        <div class="client-stat">
+          <span>Rate</span>
+          $125
+        </div>
+        <div class="client-stat">
+          <span>Unbilled</span>
+          12.0h
+        </div>
+        <div class="client-stat warning">
+          <span>Outstanding</span>
+          $3,200
+        </div>
+      </a>
+
+      <a href="#" class="client-row">
+        <div>
+          <div class="client-name">GlobalTech Solutions</div>
+          <div class="client-email">ap@globaltech.com</div>
+        </div>
+        <div class="client-stat">
+          <span>Rate</span>
+          $175
+        </div>
+        <div class="client-stat">
+          <span>Unbilled</span>
+          0.0h
+        </div>
+        <div class="client-stat positive">
+          <span>Outstanding</span>
+          $0
+        </div>
+      </a>
+    </section>
+
+    <!-- Invoices -->
+    <section id="invoices">
+      <div class="flex flex-between" style="margin-bottom: 1.5rem;">
+        <h1 style="margin-bottom: 0;">Invoices</h1>
+        <button class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          New
+        </button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 8rem;">Invoice</th>
+            <th>Client</th>
+            <th class="row-date">Issued</th>
+            <th class="row-amount">Amount</th>
+            <th class="row-status">Status</th>
+            <th class="row-date">Due</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="invoice-number"><a href="#">INV-2024-012</a></td>
+            <td>Acme Corp</td>
+            <td class="mono fg-3">Sep 1</td>
+            <td class="row-amount mono">$4,500.00</td>
+            <td><span class="status overdue">Overdue</span></td>
+            <td class="mono warning">Sep 15</td>
+          </tr>
+          <tr>
+            <td class="invoice-number"><a href="#">INV-2024-011</a></td>
+            <td>TechStart</td>
+            <td class="mono fg-3">Sep 1</td>
+            <td class="row-amount mono">$3,200.00</td>
+            <td><span class="status sent">Sent</span></td>
+            <td class="mono fg-3">Sep 20</td>
+          </tr>
+          <tr>
+            <td class="invoice-number"><a href="#">INV-2024-010</a></td>
+            <td>GlobalTech</td>
+            <td class="mono fg-3">Aug 15</td>
+            <td class="row-amount mono">$5,750.00</td>
+            <td><span class="status paid">Paid</span></td>
+            <td class="mono fg-3">&mdash;</td>
+          </tr>
+          <tr>
+            <td class="invoice-number"><a href="#">INV-2024-009</a></td>
+            <td>Acme Corp</td>
+            <td class="mono fg-3">Aug 15</td>
+            <td class="row-amount mono">$2,100.00</td>
+            <td><span class="status paid">Paid</span></td>
+            <td class="mono fg-3">&mdash;</td>
+          </tr>
+          <tr>
+            <td class="invoice-number"><a href="#">INV-2024-008</a></td>
+            <td>Acme Corp</td>
+            <td class="mono fg-3">Aug 1</td>
+            <td class="row-amount mono">$6,200.00</td>
+            <td><span class="status paid">Paid</span></td>
+            <td class="mono fg-3">&mdash;</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="summary">
+        <span class="warning mono">$7,700</span> outstanding &middot; <span class="positive mono">$14,050</span> collected this quarter
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      Punchline &middot; Billable hours tracker
+    </div>
+  </footer>
+</body>
+</html>
