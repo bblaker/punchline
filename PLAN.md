@@ -195,12 +195,18 @@ GET            /api/dashboard (summary stats)
 - [ ] Dashboard with stats
 - [ ] Mobile-responsive styling
 
-### Phase 5: MCP Server
-- [ ] MCP server exposing billing data to Claude
+### Phase 5: MCP Server (Hosted)
+- [ ] MCP server as Cloudflare Worker (HTTP transport)
 - [ ] Tools: query time entries, list clients/projects, check invoice status
 - [ ] Tools: log time entry, create invoice draft
-- [ ] Auth: Use Cloudflare D1 HTTP API with local API token (no Zero Trust complexity)
-- [ ] Token stored in local env config (e.g., `~/.config/punchline/.env`)
+- [ ] Auth: API key validated by Worker (stored in Claude MCP config)
+- [ ] Accessible from Claude.ai, Claude Code, mobile Claude
+
+### Phase 6: React Native Mobile App
+- [ ] React Native app for quick time entry on mobile
+- [ ] Auth: API key per device or magic link email
+- [ ] Core features: log time, view recent entries, quick invoice status
+- [ ] Push notifications for payment received (optional)
 
 ## Verification
 
