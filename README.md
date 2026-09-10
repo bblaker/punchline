@@ -122,6 +122,23 @@ punchline/
 pnpm deploy
 ```
 
+### CI/CD
+
+GitHub Actions automatically runs on push to `main` and on pull requests:
+
+1. Lint and type check
+2. Build
+3. Deploy to Cloudflare Pages (main branch only)
+
+**Required secrets:**
+
+| Secret | Description |
+|--------|-------------|
+| `CLOUDFLARE_API_TOKEN` | API token with Pages edit permissions |
+| `CLOUDFLARE_ACCOUNT_ID` | Your Cloudflare account ID |
+
+To create an API token: Cloudflare Dashboard → My Profile → API Tokens → Create Token → Use "Edit Cloudflare Workers" template.
+
 ## Authentication
 
 This app is designed to run behind Cloudflare Zero Trust Access. Configure an Access policy for your Pages domain to restrict access to authorized users.

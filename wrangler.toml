@@ -9,4 +9,4 @@ pages_build_output_dir = "dist"
 [[d1_databases]]
 binding = "DB"
 database_name = "punchline-db"
-database_id = "placeholder-replace-with-actual-id"
+database_id = "074795a5-1289-43d0-81fa-315fb27c6205"
