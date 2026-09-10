@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { pdf } from '@react-pdf/renderer'
 import { api, type InvoiceWithDetails, type Settings } from '../lib/api'
@@ -22,12 +22,8 @@ export function InvoiceDetail() {
   const [paymentReference, setPaymentReference] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
-  useEffect(() => {
+  const loadInvoice = useCallback(async () => {
     if (!id) return
-    loadInvoice()
-  }, [id])
-
-  async function loadInvoice() {
     try {
       const [invoiceData, settingsData] = await Promise.all([
         api.invoices.get(parseInt(id!)),
@@ -43,7 +39,11 @@ export function InvoiceDetail() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [id])
+
+  useEffect(() => {
+    loadInvoice()
+  }, [loadInvoice])
 
   async function handleSend() {
     if (!invoice || invoice.status !== 'draft') return

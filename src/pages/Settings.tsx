@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { api, type Settings } from '../lib/api'
 import { useToast } from '../components/Toast'
 
@@ -16,11 +16,7 @@ export function Settings() {
   const [invoiceNotes, setInvoiceNotes] = useState('')
   const [invoicePrefix, setInvoicePrefix] = useState('INV-')
 
-  useEffect(() => {
-    loadSettings()
-  }, [])
-
-  async function loadSettings() {
+  const loadSettings = useCallback(async () => {
     try {
       const data = await api.settings.get()
       setSettings(data)
@@ -35,7 +31,11 @@ export function Settings() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [toast])
+
+  useEffect(() => {
+    loadSettings()
+  }, [loadSettings])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()

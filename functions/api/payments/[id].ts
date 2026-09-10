@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import type { Env, Payment } from '../_shared'
+import type { Env } from '../_shared'
 
 const app = new Hono<{ Bindings: Env }>().basePath('/api/payments/:id')
 

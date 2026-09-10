@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { api, type Client, type ProjectWithClient, type TimeEntryWithDetails } from '../lib/api'
 import { useToast } from '../components/Toast'
@@ -18,12 +18,8 @@ export function ClientDetail() {
   const [projectRate, setProjectRate] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
-  useEffect(() => {
+  const loadData = useCallback(async () => {
     if (!id) return
-    loadData()
-  }, [id])
-
-  async function loadData() {
     try {
       const [clientData, projectsData, entriesData] = await Promise.all([
         api.clients.get(parseInt(id!)),
@@ -42,7 +38,11 @@ export function ClientDetail() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [id])
+
+  useEffect(() => {
+    loadData()
+  }, [loadData])
 
   async function handleAddProject(e: React.FormEvent) {
     e.preventDefault()

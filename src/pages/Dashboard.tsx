@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { api, type Client, type DashboardData, type ProjectWithClient, type TimeEntryWithDetails } from '../lib/api'
 import { useToast } from '../components/Toast'
@@ -26,9 +26,29 @@ export function Dashboard() {
   const [editHours, setEditHours] = useState('')
   const [editDesc, setEditDesc] = useState('')
 
+  const loadData = useCallback(async () => {
+    try {
+      const [dashboardData, clientsList, projectsList] = await Promise.all([
+        api.dashboard.get(),
+        api.clients.list(),
+        api.projects.list({ active: true }),
+      ])
+      setData(dashboardData)
+      setClients(clientsList)
+      setProjects(projectsList)
+      if (projectsList.length > 0) {
+        setEntryProject((current) => current || String(projectsList[0].id))
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to load')
+    } finally {
+      setLoading(false)
+    }
+  }, [])
+
   useEffect(() => {
     loadData()
-  }, [])
+  }, [loadData])
 
   // Global keyboard shortcuts
   useEffect(() => {
@@ -42,26 +62,6 @@ export function Dashboard() {
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
-
-  async function loadData() {
-    try {
-      const [dashboardData, clientsList, projectsList] = await Promise.all([
-        api.dashboard.get(),
-        api.clients.list(),
-        api.projects.list({ active: true }),
-      ])
-      setData(dashboardData)
-      setClients(clientsList)
-      setProjects(projectsList)
-      if (projectsList.length > 0 && !entryProject) {
-        setEntryProject(String(projectsList[0].id))
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load')
-    } finally {
-      setLoading(false)
-    }
-  }
 
   async function handleQuickEntry(e: React.FormEvent) {
     e.preventDefault()
