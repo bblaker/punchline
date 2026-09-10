@@ -1,0 +1,100 @@
+{
+  "world": "Split-Flap Concourse",
+  "thesis": "Time entries as departures on a live rail station departure board",
+  "palette": {
+    "flap-black": "#0d0d0d",
+    "flap-face": "#1a1a1a",
+    "flap-white": "#f0f0f0",
+    "steel-frame": "#374151",
+    "steel-light": "#4b5563",
+    "amber": "#f5a623",
+    "amber-dim": "#b8860b",
+    "red": "#dc2626",
+    "red-dim": "#991b1b",
+    "green": "#22c55e",
+    "green-dim": "#166534",
+    "fg-2": "#9ca3af",
+    "fg-3": "#6b7280",
+    "bg-hover": "#262626"
+  },
+  "typography": {
+    "display": {
+      "family": "Roboto Condensed, system-ui, sans-serif",
+      "weight": 700,
+      "transform": "uppercase",
+      "letterSpacing": "0.05em-0.15em"
+    },
+    "mono": {
+      "family": "JetBrains Mono, ui-monospace, monospace",
+      "features": "tabular-nums"
+    },
+    "sans": {
+      "family": "system-ui, -apple-system, sans-serif"
+    }
+  },
+  "typeScale": {
+    "statValue": "2.5rem",
+    "statValueMobile": "2rem",
+    "sectionHeader": "0.875rem",
+    "body": "0.9375rem",
+    "label": "0.625rem-0.6875rem",
+    "hint": "0.6875rem-0.75rem"
+  },
+  "borders": {
+    "panel": "2px solid var(--steel-frame)",
+    "divider": "1px solid var(--border)",
+    "radius": "2px-4px"
+  },
+  "status": {
+    "paid": {
+      "color": "var(--green)",
+      "background": "rgba(34, 197, 94, 0.15)",
+      "lamp": true
+    },
+    "sent": {
+      "color": "var(--amber)",
+      "background": "rgba(245, 166, 35, 0.15)",
+      "lamp": true
+    },
+    "overdue": {
+      "color": "var(--red)",
+      "background": "rgba(220, 38, 38, 0.15)",
+      "lamp": true
+    },
+    "draft": {
+      "color": "var(--fg-3)",
+      "background": "var(--bg-hover)",
+      "lamp": false
+    },
+    "void": {
+      "color": "var(--red-dim)",
+      "background": "rgba(153, 27, 27, 0.15)",
+      "lamp": false,
+      "strikethrough": true
+    }
+  },
+  "breakpoints": {
+    "mobile": "768px"
+  },
+  "rules": {
+    "darkOnly": true,
+    "steelFrames": true,
+    "uppercaseDisplay": true,
+    "monospaceFigures": true,
+    "statusLamps": true,
+    "amberAccent": true,
+    "maxRadius": "4px"
+  },
+  "browserSurface": {
+    "selection": {
+      "background": "var(--amber)",
+      "color": "var(--flap-black)"
+    },
+    "focusVisible": {
+      "outline": "2px solid var(--amber)",
+      "outlineOffset": "2px"
+    },
+    "placeholder": "var(--fg-3)",
+    "caret": "var(--amber)"
+  }
+}

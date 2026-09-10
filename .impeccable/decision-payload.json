@@ -1,0 +1,114 @@
+{
+  "title": "Choose the visual world",
+  "question": "The roll assigned Split-Flap Concourse. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Split-Flap Concourse",
+      "kicker": "THE ROLL",
+      "lineage": "Rail station departure boards",
+      "thesis": "Time entries as departures: cascading updates, live status rows, the whole concourse watching the same board.",
+      "palette": ["#1a1a1a", "#ffffff", "#f5a623", "#cc3333"],
+      "materials": ["matte black flaps", "brushed steel frame", "white paint letters"],
+      "viewport": "A full-width departure board showing today's time entries as live rows, hours cascading into place character by character.",
+      "risk": "Reads retro-novelty when the animation is gratuitous rather than functional.",
+      "raised": [
+        {"from": "airport-wayfinding", "raise": "Sticky positioned status bands persist during scroll."},
+        {"from": "sneaker-archive", "raise": "Detail views hinge open with lid-reveal interaction."},
+        {"from": "cyclorama", "raise": "Time periods organized as horizon bands (today, this week, this month)."},
+        {"from": "ascii-grid", "raise": "Strict monospace grid discipline for all tabular data."}
+      ],
+      "comp": ".impeccable/mocks/decision/assigned.webp",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-split-flap-concourse-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/signals-instruments-split-flap-concourse.webp"
+    },
+    {
+      "id": "model-pick",
+      "label": "Accountant's Ledger",
+      "kicker": "IMPECCABLE'S PICK",
+      "lineage": "Green-ruled columnar pads",
+      "thesis": "The ruled ledger that accountants trust: green rules, red/black ink, running totals in the margin.",
+      "palette": ["#f5f5eb", "#2d5a27", "#cc3333", "#1a1a1a"],
+      "materials": ["ledger paper", "ruled columns", "fountain pen ink"],
+      "viewport": "A ruled columnar page with time entries in careful rows, hours summed in the margin, today's work in fresh ink.",
+      "risk": "Also the direction most runs in this category land on.",
+      "comp": ".impeccable/mocks/decision/model-pick.webp"
+    },
+    {
+      "id": "challenger-airport",
+      "label": "Airport Wayfinding",
+      "verdict": "competitive",
+      "lineage": "Schiphol terminal signage",
+      "thesis": "Yellow wayfinding bands guide you through the work: gates become clients, distances become hours.",
+      "palette": ["#ffc107", "#1a1a1a", "#ffffff"],
+      "materials": ["saturated yellow panels", "humanist sans", "white pictograms"],
+      "viewport": "Overhead yellow bands showing client routes, time remaining to invoice due dates.",
+      "case": "Wins on clarity (excellent state communication) but loses on identification (airports aren't the freelancer's world).",
+      "risk": "The industrial wayfinding aesthetic may feel too impersonal for solo work.",
+      "comp": ".impeccable/mocks/decision/challenger-airport.webp",
+      "hero": "https://impeccable.style/worlds/cards/wayfinding-cartography-signage-terminal-yellow-wayfinding-hero.webp"
+    },
+    {
+      "id": "challenger-pop-sleeve",
+      "label": "Yéyé Pop Sleeve",
+      "verdict": "declined",
+      "lineage": "1960s French pop records",
+      "palette": ["#ff6b35", "#00bcd4", "#ffffff"],
+      "materials": ["flat saturated ground", "rounded logotype"],
+      "case": "Time tracking needs structure, not pop energy. Loses both axes.",
+      "kept": "Courage of one flat saturated ground per surface state.",
+      "hero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-yeye-pop-sleeve-hero.webp"
+    },
+    {
+      "id": "challenger-sneaker",
+      "label": "Sneaker Archive",
+      "verdict": "declined",
+      "lineage": "Sneaker box wall stacks",
+      "palette": ["#bf5700", "#1a1a1a", "#ffffff"],
+      "materials": ["cardboard box board", "tissue paper", "silhouette line art"],
+      "case": "Box-stack metaphor doesn't serve professional billing. Loses both axes.",
+      "kept": "Lid-hinge reveal interaction for detail expansion.",
+      "hero": "https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-sneaker-box-stacks-hero.webp"
+    },
+    {
+      "id": "challenger-cyclorama",
+      "label": "Cyclorama Dawn",
+      "verdict": "declined",
+      "lineage": "Theater lighting cycloramas",
+      "palette": ["#0a0a0a", "#1e3a5f", "#d4a5a5", "#ffffff"],
+      "materials": ["curved cyc wall", "graduated light wash"],
+      "case": "Theatrical atmosphere doesn't serve data-dense time tracking. Loses both axes.",
+      "kept": "Horizon-band organization for time periods.",
+      "hero": "https://impeccable.style/worlds/cards/stagecraft-theater-lighting-cyclorama-dawn-hero.webp"
+    },
+    {
+      "id": "challenger-ascii",
+      "label": "ASCII Live Render",
+      "verdict": "declined",
+      "lineage": "Terminal character graphics",
+      "palette": ["#0a0a0a", "#33ff33"],
+      "materials": ["phosphor glow", "monospace glyphs"],
+      "case": "Terminal nostalgia is cosplay for modern billing software. Loses both axes.",
+      "kept": "Strict monospace grid integrity for tabular data.",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-ascii-live-scene-render-hero.webp"
+    }
+  ],
+  "canonCard": {
+    "label": "Standard SaaS Dashboard",
+    "lineage": "Modern billing software",
+    "thesis": "The familiar pattern: sidebar nav, card metrics, data tables, neutral palette.",
+    "palette": ["#ffffff", "#f3f4f6", "#3b82f6", "#1f2937"],
+    "materials": ["card shadows", "rounded corners", "system fonts"],
+    "viewport": "A dashboard with metric cards at top, filterable data table below, sidebar navigation.",
+    "risk": "Indistinguishable from every other tool in the category."
+  },
+  "reroll": {
+    "enabled": true,
+    "registers": ["safer", "bolder"],
+    "steer": "Optional: describe what quality is missing"
+  },
+  "buildPath": {
+    "value": "code",
+    "toggle": true
+  }
+}
