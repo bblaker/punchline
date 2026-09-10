@@ -99,19 +99,24 @@ punchline/
 
 ### First-time setup
 
-1. Create a D1 database:
+1. Create the Pages project:
+   ```bash
+   wrangler pages project create punchline
+   ```
+
+2. Create a D1 database:
    ```bash
    wrangler d1 create punchline-db
    ```
 
-2. Update `wrangler.toml` with the database ID from step 1
+3. Update `wrangler.toml` with the database ID from step 2
 
-3. Run the schema migration:
+4. Run the schema migration:
    ```bash
    pnpm db:migrate
    ```
 
-4. Deploy:
+5. Deploy:
    ```bash
    pnpm deploy
    ```
