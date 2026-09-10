@@ -27,7 +27,7 @@ Built on Cloudflare Pages with D1 (SQLite at the edge).
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 22+
 - pnpm
 - Wrangler CLI (`pnpm add -g wrangler`)
 
