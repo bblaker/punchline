@@ -219,6 +219,7 @@ export function InvoiceDetail() {
       <table>
         <thead>
           <tr>
+            <th className="row-date">Date</th>
             <th>Description</th>
             <th className="row-hours">Qty</th>
             <th className="row-amount">Rate</th>
@@ -228,6 +229,7 @@ export function InvoiceDetail() {
         <tbody>
           {invoice.line_items.map((item) => (
             <tr key={item.id}>
+              <td className="row-date mono">{item.date || '—'}</td>
               <td>{item.description}</td>
               <td className="row-hours mono">{item.quantity}</td>
               <td className="row-amount mono">{formatCurrency(item.rate)}</td>
@@ -237,7 +239,7 @@ export function InvoiceDetail() {
         </tbody>
         <tfoot>
           <tr>
-            <td colSpan={3} style={{ textAlign: 'right', fontWeight: 500 }}>Total</td>
+            <td colSpan={4} style={{ textAlign: 'right', fontWeight: 500 }}>Total</td>
             <td className="row-amount mono" style={{ fontWeight: 500 }}>{formatCurrency(invoice.subtotal)}</td>
           </tr>
         </tfoot>

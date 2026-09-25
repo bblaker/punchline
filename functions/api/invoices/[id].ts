@@ -19,7 +19,11 @@ app.get('/', async (c) => {
   }
 
   const lineItems = await c.env.DB.prepare(
-    `SELECT * FROM invoice_line_items WHERE invoice_id = ? ORDER BY sort_order`
+    `SELECT ili.*, te.date
+     FROM invoice_line_items ili
+     LEFT JOIN time_entries te ON ili.time_entry_id = te.id
+     WHERE ili.invoice_id = ?
+     ORDER BY te.date, ili.sort_order`
   ).bind(id).all<InvoiceLineItem>()
 
   const payments = await c.env.DB.prepare(

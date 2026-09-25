@@ -198,6 +198,7 @@ export interface InvoiceLineItem {
   rate: number
   amount: number
   sort_order: number
+  date: string | null
 }
 
 export interface InvoiceWithDetails extends Invoice {

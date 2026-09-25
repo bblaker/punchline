@@ -69,6 +69,7 @@ export interface InvoiceLineItem {
   rate: number
   amount: number
   sort_order: number
+  date: string | null
   created_at: string
 }
 

@@ -69,6 +69,10 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderBottom: '1 solid #f0f0f0',
   },
+  colDate: {
+    width: 70,
+    fontFamily: 'Courier',
+  },
   colDescription: {
     flex: 1,
   },
@@ -226,6 +230,7 @@ export function InvoicePDF({ invoice, settings }: InvoicePDFProps) {
 
         <View style={styles.table}>
           <View style={styles.tableHeader}>
+            <Text style={styles.colDate}>Date</Text>
             <Text style={styles.colDescription}>Description</Text>
             <Text style={styles.colQty}>Qty</Text>
             <Text style={styles.colRate}>Rate</Text>
@@ -234,6 +239,7 @@ export function InvoicePDF({ invoice, settings }: InvoicePDFProps) {
 
           {invoice.line_items.map((item) => (
             <View key={item.id} style={styles.tableRow}>
+              <Text style={styles.colDate}>{item.date || '—'}</Text>
               <Text style={styles.colDescription}>{item.description}</Text>
               <Text style={styles.colQty}>{item.quantity}</Text>
               <Text style={styles.colRate}>{formatCurrency(item.rate)}</Text>
